@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.aranoua.ramonsantos.princesas.customerros.NonUniquePrincesaException;
 import br.edu.aranoua.ramonsantos.princesas.entity.Princesas;
 import br.edu.aranoua.ramonsantos.princesas.repository.PrincesasRepository;
 
@@ -29,7 +30,19 @@ public class PrincesasServices {
 	}
 	
 	public Princesas criarPrincesas(Princesas princesa) {
-		return princesasRepository.save(princesa);
+		 List<Princesas> princesasExistentes =  princesasRepository.findByPrincesa(princesa.getNome());
+		 for(Princesas princesaExistente : princesasExistentes) {
+			 if(princesaExistente.getNome().equals(princesa.getNome()) &&
+				(princesaExistente.getId() != princesa.getId()) ) {
+				 throw new NonUniquePrincesaException("princesa ja cadastrada!");	
+			 }
+					 
+		 
+		 
+		 }
+		 
+		 
+		 return princesasRepository.save(princesa);
 	}
 	
 	public Princesas atualizarPrincesa(long id, Princesas princesa) {

@@ -7,4 +7,5 @@ import br.edu.aranoua.ramonsantos.princesas.entity.*;
 
 public interface PrincesasRepository extends JpaRepository<Princesas, Long>{
 	List<Princesas> findByReino(String reino);
+	List<Princesas> findByPrincesa(String nome);
 }
